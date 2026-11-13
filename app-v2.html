@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>تمرينك – سجّل وتابع تمارينك</title>
+<meta name="theme-color" content="#0b3d2a">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="logo-180.png">
+<link rel="icon" href="logo-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf6ee;--card:#fff;--ink:#0b3d2a;--mut:#5b6b62;--line:#e3dfd3;--lime:#c6f432;--on-lime:#0b3d2a;--chart:#2f9e44;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1511;--card:#14221b;--ink:#eaf5ec;--mut:#9fb3a6;--line:#24372d;--chart:#c6f432}}
+:root[data-theme="dark"]{--bg:#0c1511;--card:#14221b;--ink:#eaf5ec;--mut:#9fb3a6;--line:#24372d;--chart:#c6f432}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Cairo,system-ui,sans-serif;line-height:1.6;padding-bottom:84px}
+header{background:#0b3d2a;color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;border-radius:0 0 22px 22px}
+#today{background:var(--lime);color:#0b3d2a;font-weight:800;border-radius:999px;padding:2px 12px;font-size:14px}
+header h1{color:#fff;font-weight:900;font-size:26px}
+h1{margin:0;font-size:28px;font-weight:800;font-style:italic;letter-spacing:-.5px}
+h2{font-size:20px;margin:18px 0 8px}
+main{max-width:560px;margin:auto;padding:0 16px}
+.banner{background:var(--lime);color:var(--on-lime);border-radius:16px;padding:12px 16px;font-weight:800;margin:8px 0 4px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:10px 0}
+.muted{color:var(--mut);font-size:14px}
+select,input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 10px;width:100%}
+.row{display:flex;gap:8px;align-items:center;margin:6px 0}
+.row input{text-align:center}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:10px 16px;font-weight:600}
+.pri{background:var(--lime);color:var(--on-lime);font-weight:800;width:100%;padding:13px;font-size:17px}
+.sec{background:transparent;color:var(--ink);border:1px solid var(--line);width:100%}
+.x{background:transparent;color:var(--mut);padding:6px 10px}
+details{border-top:1px solid var(--line);padding:8px 0}details:first-of-type{border-top:0}
+summary{font-weight:600;cursor:pointer}
+nav{position:fixed;bottom:0;left:0;right:0;background:#0b3d2a;display:flex;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom,0px))}
+nav button{background:transparent;color:#cfe0d4;font-size:12px;padding:6px 6px;border-radius:12px}
+nav button.on{background:var(--lime);color:var(--on-lime);font-weight:800}
+.days{display:flex;flex-wrap:wrap;gap:6px}
+.days label{border:1px solid var(--line);border-radius:10px;padding:6px 10px;cursor:pointer}
+.days input{display:none}.days input:checked+span{font-weight:800;background:var(--lime);color:var(--on-lime);padding:6px 10px;margin:-6px -10px;border-radius:10px;display:block}
+.scroll{overflow-x:auto}
+.brand{display:flex;gap:8px;align-items:center}.sup{background:var(--lime);color:#0b3d2a;border-radius:50%;width:38px;height:38px;padding:0;font-size:18px}header{gap:8px}header .brand{margin-inline-end:auto}
+#inst{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));background:#0b3d2a;color:#fff;border:2px solid var(--lime);border-radius:20px;padding:12px 14px;z-index:20;display:flex;gap:10px;align-items:center}#inst b{flex:1;font-size:14px;line-height:1.5}
+#sup{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:40;display:flex;align-items:center;justify-content:center;padding:16px}
+.card{border-radius:20px}.pri,.sec{border-radius:999px}
+nav{border-radius:22px 22px 0 0}nav button.on{border-radius:999px}
+summary{list-style:none;display:flex;justify-content:space-between;align-items:center}summary::-webkit-details-marker{display:none}summary::after{content:"‹";color:var(--mut);font-size:24px;transition:transform .2s}details[open] summary::after{transform:rotate(-90deg)}
+.hero{background:#0b3d2a;color:#fff;border-radius:22px;padding:20px;margin:14px 0}
+.hero h3{margin:0 0 6px;font-size:24px;font-weight:900}.hero mark{background:var(--lime);color:#0b3d2a;padding:0 8px;border-radius:10px}
+.hero p{color:#cfe0d4;margin:0 0 14px;font-size:14px}.hero .pri{width:auto;padding:10px 22px}
+.land{background:var(--card);border-radius:28px;padding:26px 20px;margin:18px 0;box-shadow:0 8px 30px rgba(11,61,42,.14)}
+.land .logo{font-weight:900;font-style:italic;font-size:36px;text-align:center}.land .tag{text-align:center;color:#5f8f12;font-weight:600}
+.land h2{text-align:center;font-size:24px;font-weight:900;margin:10px 0 4px}.land .sub{text-align:center;color:var(--mut);margin:0 0 6px}
+.feat{display:flex;gap:12px;align-items:flex-start;margin:16px 0}.feat .i{font-size:22px;background:var(--lime);width:44px;height:44px;border-radius:14px;display:grid;place-items:center;flex:none}.feat b{display:block}.feat span.d{color:var(--mut);font-size:14px}
+.cta{background:#0b3d2a;color:#fff;border:2px solid var(--lime);border-radius:999px;font-weight:800;font-size:18px;padding:14px 32px;display:block;margin:22px auto 4px}
+.demo{display:flex;gap:8px;margin:8px 0}.demo figure{flex:1;margin:0;background:var(--bg);border:1px solid var(--line);border-radius:12px;text-align:center}.demo svg{width:100%;max-height:170px}.demo figcaption{font-size:13px;color:var(--mut);padding-bottom:4px}
+:focus-visible{outline:3px solid var(--lime);outline-offset:2px}
+</style>
+</head>
+<body>
+<header><div class="brand"><svg viewBox="0 0 40 40" width="36" height="36" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#c6f432"/><path d="M9 20h22M12 14v12M28 14v12M7 17v6M33 17v6" stroke="#0b3d2a" stroke-width="3" stroke-linecap="round"/></svg><h1>تمرينك</h1></div><span id="today"></span><button class="sup" onclick="openSup()" aria-label="الدعم الفني">🎧</button></header>
+<main id="app"></main>
+<nav id="nav"></nav>
+<script>
+const EX={"الصدر":[["بنش بريس","نزّل البار لنص الصدر وادفع لفوق، والكوع بزاوية 45° تقريبًا."],["ضغط دمبل مائل","على بنش مائل، ابدأ من أعلى الصدر وانزل ببطء."],["فلاي كابل","ذراعك مفرود شوية، واجمع الإيد قدام الصدر."]],
+"الظهر":[["سحب أمامي","اسحب البار لأعلى الصدر وشد لوح الكتف لتحت."],["تجديف بار","ضهرك مفرود وميل لقدام، واسحب البار ناحية البطن."],["ديدلفت","البار قريب من رجلك وضهرك ثابت طول الحركة."]],
+"الأرجل":[["سكوات","انزل لحد ما الفخد يوازي الأرض، والركبة في اتجاه الصوابع."],["ليج بريس","ادفع بالكعب ومتقفلش الركبة بالكامل."],["لانجز","خطوة واسعة وانزل عمودي، وارجع بالرجل الأمامية."]],
+"الكتف":[["ضغط كتف دمبل","ادفع الدمبل لفوق من جنب الودن من غير ما تقوّس ضهرك."],["رفرفة جانبي","ارفع الدمبل لمستوى الكتف والكوع أعلى من الإيد شوية."],["رفرفة خلفي","ميل لقدام وافتح الدراعين لجنب."]]};
+const S=[50,22,50,46,50,68,50,90];
+const P={"بنش بريس":[[30,60,40,62,34,50,60,60,72,72,72,90],[30,60,30,44,30,28,60,60,72,72,72,90],"b",[18,64,66,64]],
+"ضغط دمبل مائل":[[36,48,44,56,36,40,52,66,66,72,66,90],[36,48,36,32,36,16,52,66,66,72,66,90],"d",[28,44,54,68]],
+"فلاي كابل":[[50,22,42,30,36,24,50,46,50,68,50,90],[50,22,58,28,68,26,50,46,50,68,50,90],"d"],
+"سحب أمامي":[[45,30,52,16,56,2,45,60,65,60,65,90],[45,30,40,40,54,32,45,60,65,60,65,90],"b",[35,62,55,62]],
+"تجديف بار":[[65,38,66,54,66,68,40,50,44,70,40,90],[65,38,50,48,62,52,40,50,44,70,40,90],"b"],
+"ديدلفت":[[62,44,61,58,60,72,35,52,48,68,46,90],[50,22,50,36,52,52,48,46,50,68,50,90],"b"],
+"سكوات":[[50,22,42,30,46,20,50,46,50,68,50,90],[46,40,40,48,46,38,30,66,58,64,50,90],"b"],
+"ليج بريس":[[20,60,24,68,30,74,30,72,48,56,66,66],[20,60,24,68,30,74,30,72,53,57,78,50],"",[14,64,30,78]],
+"لانجز":[[50,22,50,36,52,52,50,46,50,68,50,90],[50,30,50,44,52,58,50,58,68,68,68,90],"d"],
+"ضغط كتف دمبل":[[50,22,58,32,52,18,50,46,50,68,50,90],[50,22,52,8,52,-6,50,46,50,68,50,90],"d"],
+"رفرفة جانبي":[[50,22,50,38,50,52,50,46,50,68,50,90],[50,22,58,26,70,26,50,46,50,68,50,90],"d"],
+"رفرفة خلفي":[[65,38,66,54,66,68,40,50,44,70,40,90],[65,38,72,48,70,62,40,50,44,70,40,90],"d"]};
+function fig(a,eq,bn){const[n,e,w,p,k,f]=[0,2,4,6,8,10].map(i=>[a[i],a[i+1]]);
+const dx=n[0]-p[0],dy=n[1]-p[1],l=Math.hypot(dx,dy)||1,h=[n[0]+dx/l*8,n[1]+dy/l*8];
+const L=(a,b)=>`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}"/>`;
+let s=bn?`<g stroke="var(--mut)" stroke-width="2">${L([bn[0],bn[1]],[bn[2],bn[3]])}</g>`:"";
+s+=`<g stroke="var(--ink)" stroke-width="3.5" stroke-linecap="round">${L(n,p)+L(p,k)+L(k,f)+L(n,e)+L(e,w)}</g><circle cx="${h[0]}" cy="${h[1]}" r="6" fill="var(--ink)"/>`;
+if(eq=="b")s+=`<circle cx="${w[0]}" cy="${w[1]}" r="7" fill="none" stroke="var(--chart)" stroke-width="3"/>`;
+if(eq=="d")s+=`<circle cx="${w[0]}" cy="${w[1]}" r="4" fill="var(--chart)"/>`;
+return s}
+function demo(name){const d=P[name];if(!d)return"";return `<div class="demo">${d.slice(0,2).map((a,i)=>`<figure><svg viewBox="0 -12 100 106" role="img" aria-label="${i?"النهاية":"البداية"}">${fig(a,d[2],d[3])}</svg><figcaption>${i?"النهاية":"البداية"}</figcaption></figure>`).join("")}</div>`}
+function mix(a,b,t){return a.map((v,i)=>v+(b[i]-v)*t)}
+function demo2(name){const d=P[name];if(!d)return"";return `<div class="demo"><figure><svg class="anim" data-n="${esc(name)}" viewBox="0 -12 100 106" role="img" aria-label="حركة التمرين">${fig(d[0],d[2],d[3])}</svg><figcaption>الحركة بتتكرر: من البداية للنهاية</figcaption></figure></div>`}
+function tick(now){const rm=matchMedia("(prefers-reduced-motion:reduce)").matches;
+document.querySelectorAll("details[open] svg.anim").forEach(s=>{const d=P[s.dataset.n];if(!d)return;const t=rm?0:(1-Math.cos(now/1200*Math.PI))/2;s.innerHTML=fig(mix(d[0],d[1],t),d[2],d[3])});requestAnimationFrame(tick)}
+requestAnimationFrame(tick);
+const ALL=Object.values(EX).flat().map(e=>e[0]);
+const PROG=[{n:"فول بادي – 3 أيام",d:[["يوم 1",["بنش بريس","سحب أمامي","سكوات"]],["يوم 2",["ضغط كتف دمبل","تجديف بار","ليج بريس"]],["يوم 3",["ضغط دمبل مائل","ديدلفت","لانجز"]]]},
+{n:"دفع / سحب / أرجل",d:[["دفع",["بنش بريس","ضغط كتف دمبل","رفرفة جانبي"]],["سحب",["سحب أمامي","تجديف بار","رفرفة خلفي"]],["أرجل",["سكوات","ليج بريس","لانجز"]]]}];
+const DAYS=["الأحد","الاتنين","التلات","الأربع","الخميس","الجمعة","السبت"];
+const TABS=[["home","الرئيسية"],["lib","التمارين"],["log","تسجيل"],["prog","التقدم"],["plan","برامج"],["rem","تذكيرات"],["me","ملفي"]];
+let tab="home",rows=[],sel=ALL[0],psel=ALL[0];
+const M={};
+function load(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return M[k]??d}}
+function save(k,v){M[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+let sub=load("sub",null),profile=load("profile",{}),weights=load("weights",[]),welcomed=load("welcomed",false),logs=load("logs",[]),rem=load("rem",{days:[],time:"18:00"});
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const opts=v=>ALL.map(n=>`<option ${n==v?"selected":""}>${n}</option>`).join("");
+function last(ex){return [...logs].reverse().find(l=>l.ex==ex)}
+function go(t){tab=t;if(t=="log")rows=last(sel)?last(sel).sets.map(s=>({...s})):[{w:"",r:""}];render()}
+function landing(){$("#nav").innerHTML="";$("#today").textContent=DAYS[new Date().getDay()];
+$("#app").innerHTML=`<div class="land"><div class="logo">تمرينك</div><div class="tag">تطبيق تمرين مجاني</div><h2>أهلاً بيك في تمرينك 💪</h2><p class="sub">سجّل تمرينك وتابع تقدمك في مكان واحد.</p>
+<div class="feat"><div class="i">📈</div><div><b>تابع تقدمك</b><span class="d">سجّل تمارينك وأوزانك وراجع نتايجك السابقة.</span></div></div>
+<div class="feat"><div class="i">🔔</div><div><b>تذكيرات تساعدك تستمر</b><span class="d">اختار أيام وميعاد تمرينك.</span></div></div>
+<div class="feat"><div class="i">📖</div><div><b>مكتبة تمارين</b><span class="d">اعرف طريقة تنفيذ كل تمرين بحركة توضيحية.</span></div></div>
+<div class="feat"><div class="i">🏋️</div><div><b>برامج تدريب</b><span class="d">اختار البرنامج اللي يناسبك.</span></div></div>
+<button class="cta" onclick="welcomed=true;save('welcomed',true);go(profile.name?'home':'me')">← يلا نبدأ</button></div>`}
+function render(){if(!welcomed){landing();return}
+ $("#nav").innerHTML=TABS.map(([k,n])=>`<button class="${k==tab?"on":""}" onclick="go('${k}')">${n}</button>`).join("");
+ $("#today").textContent=DAYS[new Date().getDay()];
+ $("#app").innerHTML=V[tab]();window.scrollTo(0,0)}
+const V={
+me(){const lw=weights.at(-1),pw=weights.at(-2),due=lw&&Date.now()-lw.t>=6048e5;
+const ch=pw?(()=>{const d=lw.w-pw.w;return (d==0?"الوزن ثابت":(d<0?`نزل ${(-d).toFixed(1)}`:`زاد ${d.toFixed(1)}`)+" كجم عن آخر مرة")})():"";
+return `<h2>ملفي</h2><div class="card"><div class="row"><input id="pn" placeholder="الاسم" value="${esc(profile.name||"")}"></div><div class="row"><input id="pp" type="tel" inputmode="tel" placeholder="رقم الهاتف" value="${esc(profile.phone||"")}"></div><div class="row"><input id="ph" type="number" inputmode="numeric" placeholder="الطول (سم)" value="${esc(profile.height||"")}"><input id="pw" type="number" inputmode="decimal" placeholder="الوزن الحالي (كجم)" ${lw?`value="${lw.w}" disabled`:""}></div><button class="pri" onclick="saveProfile()">حفظ بياناتي</button></div>`+(lw?`<h2>وزني</h2>${due?`<div class="banner">عدّى أسبوع – سجّل وزنك الجديد</div>`:""}<div class="card"><b>${lw.w} كجم</b> <span class="muted">${new Date(lw.t).toLocaleDateString("ar-EG")}</span><div class="muted">${ch}</div>${lineSvg(weights.map(x=>x.w))}<div class="row"><input id="nw" type="number" inputmode="decimal" placeholder="وزنك الجديد (كجم)"><button class="pri" style="width:auto" onclick="addWeight()">سجّل</button></div><p class="muted">سجّل وزنك مرة كل أسبوع عشان تتابع التغيير.</p></div>`:`<p class="muted">اكتب بياناتك ووزنك الحالي فوق، وهنفكّرك تحدّث الوزن كل أسبوع.</p>`)+`<p class="muted">بياناتك محفوظة على جهازك بس.</p>`},
+home(){const t=rem.days.includes(new Date().getDay());
+ const rec=[...logs].reverse().slice(0,5);
+ return wDue()+(t?`<div class="banner">النهارده يوم تمرين${sessTxt()} – معادك الساعة ${rem.time}</div>`:"")+
+ `<div class="hero"><h3>سجّل وتابع تمريناتك <mark>مجانًا</mark></h3><p>اكتب المجموعات والأوزان والتكرارات، وشوف تطورك في رسم بياني بسيط. البيانات بتتحفظ على جهازك.</p><button class="pri" onclick="go('log')">سجّل تمرين دلوقتي</button></div>
+ <h2>آخر التمارين</h2>`+(rec.length?rec.map(l=>`<div class="card"><b>${esc(l.ex)}</b> <span class="muted">${l.date}</span><div class="muted">${l.sets.map(s=>s.w+" كجم × "+s.r).join(" • ")}</div></div>`).join(""):`<div class="card muted">لسه مفيش تمارين متسجلة. ابدأ بأول تمرين.</div>`)},
+lib(){return Object.entries(EX).map(([g,a])=>`<h2>${g}</h2><div class="card">${a.map(e=>`<details><summary>${e[0]}</summary>${demo2(e[0])}<p class="muted">${e[1]}</p><button class="sec" onclick="sel='${e[0]}';go('log')">سجّل التمرين ده</button></details>`).join("")}</div>`).join("")},
+log(){return `<h2>تسجيل تمرين</h2><div class="card"><select onchange="sel=this.value;go('log')">${opts(sel)}</select>
+ <div style="margin-top:10px">${rows.map((s,i)=>`<div class="row"><span class="muted" style="width:24px">${i+1}</span><input type="number" inputmode="decimal" placeholder="الوزن (كجم)" value="${s.w}" oninput="rows[${i}].w=this.value"><input type="number" inputmode="numeric" placeholder="التكرارات" value="${s.r}" oninput="rows[${i}].r=this.value"><button class="x" aria-label="حذف المجموعة" onclick="rows.splice(${i},1);render()">✕</button></div>`).join("")}</div>
+ <div class="row"><button class="sec" onclick="rows.push({w:rows.at(-1)?.w||'',r:rows.at(-1)?.r||''});render()">+ مجموعة</button></div>
+ <button class="pri" onclick="saveLog()">حفظ التمرين</button></div>`},
+prog(){const l=logs.filter(x=>x.ex==psel);
+ const pts=l.map(x=>Math.max(0,...x.sets.map(s=>+s.w||0)));
+ let svg=`<p class="muted">سجّل التمرين ده مرتين على الأقل عشان الرسم يظهر.</p>`;
+ if(pts.length>1){const W=300,H=130,mx=Math.max(...pts),mn=Math.min(...pts),r=mx-mn||1;
+  const xy=pts.map((p,i)=>[10+i*(W-20)/(pts.length-1),H-15-(p-mn)/r*(H-35)]);
+  svg=`<svg viewBox="0 0 ${W} ${H}" style="width:100%" role="img" aria-label="تطور أعلى وزن"><polyline fill="none" stroke="var(--chart)" stroke-width="3" points="${xy.map(p=>p.join(",")).join(" ")}"/>${xy.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="var(--chart)"/>`).join("")}</svg><div class="muted">أعلى وزن: من ${pts[0]} إلى ${pts.at(-1)} كجم</div>`}
+ const lt=l.at(-1);
+ return `<h2>تطور أدائك</h2><div class="card"><select onchange="psel=this.value;render()">${opts(psel)}</select>${svg}</div>`+
+ (lt?`<div class="card scroll"><b>آخر جلسة (${lt.date})</b><table style="width:100%;text-align:center;margin-top:6px"><tr class="muted"><td>المجموعة</td><td>الوزن</td><td>التكرارات</td></tr>${lt.sets.map((s,i)=>`<tr><td>${i+1}</td><td>${s.w} كجم</td><td>${s.r}</td></tr>`).join("")}</table></div>`:"")},
+plan(){return PROG.map((p,pi)=>`<h2>${p.n}</h2><div class="card">${subBtn(pi)}${p.d.map(d=>`<details><summary>${d[0]}</summary>${d[1].map(e=>`<div class="row"><span>${e}</span><button class="x" style="margin-inline-start:auto" onclick="sel='${e}';go('log')">سجّل</button></div>`).join("")}</details>`).join("")}</div>`).join("")},
+rem(){return `<h2>تذكيرات التمرين</h2><div class="card"><p class="muted">اختار أيام تمرينك وميعاده، وهنفكّرك أول ما تفتح الموقع في اليوم ده.</p><div class="days">${DAYS.map((d,i)=>`<label><input type="checkbox" ${rem.days.includes(i)?"checked":""} onchange="togDay(${i})"><span>${d}</span></label>`).join("")}</div>
+ <div class="row" style="margin-top:12px"><span>الميعاد</span><input type="time" value="${rem.time}" onchange="rem.time=this.value;save('rem',rem)"></div><button class="sec" style="margin-top:8px" onclick="askNotif()">فعّل الإشعارات</button><p class="muted">الإشعارات بتوصلك لما يكون التطبيق مفتوح أو شغّال على موبايلك.</p></div>`}
+};
+function lineSvg(pts){if(pts.length<2)return "";const W=300,H=130,mx=Math.max(...pts),mn=Math.min(...pts),r=mx-mn||1;
+const xy=pts.map((p,i)=>[10+i*(W-20)/(pts.length-1),H-15-(p-mn)/r*(H-35)]);
+return `<svg viewBox="0 0 ${W} ${H}" style="width:100%" role="img" aria-label="تطور الوزن"><polyline fill="none" stroke="var(--chart)" stroke-width="3" points="${xy.map(p=>p.join(",")).join(" ")}"/>${xy.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="var(--chart)"/>`).join("")}</svg>`}
+function wDue(){const lw=weights.at(-1);return (profile.name?`<h2 style="margin-top:14px">أهلاً يا ${esc(profile.name)} 👋</h2>`:"")+(lw&&Date.now()-lw.t>=6048e5?`<div class="banner" style="cursor:pointer" onclick="go('me')">عدّى أسبوع على آخر وزن – سجّل وزنك الجديد</div>`:"")}
+function saveProfile(){const n=$("#pn").value.trim(),p=$("#pp").value.trim();
+if(!n){alert("اكتب اسمك.");return}
+if(p&&!/^[0-9+ ]{8,15}$/.test(p)){alert("رقم الهاتف لازم يكون أرقام إنجليزي من 8 لـ 15 رقم.");return}
+profile={name:n,phone:p,height:$("#ph").value};save("profile",profile);
+const w=parseFloat($("#pw").value);if(w>=20&&w<=400&&!weights.length){weights.push({t:Date.now(),w});save("weights",weights)}go("me")}
+function addWeight(){const w=parseFloat($("#nw").value);if(!(w>=20&&w<=400)){alert("اكتب وزن صحيح بالكيلو.");return}weights.push({t:Date.now(),w});save("weights",weights);render()}
+function togDay(i){rem.days=rem.days.includes(i)?rem.days.filter(d=>d!=i):[...rem.days,i];save("rem",rem)}
+function saveLog(){const sets=rows.filter(s=>s.w!==""&&s.r!=="");
+ if(!sets.length){alert("اكتب الوزن والتكرارات لمجموعة واحدة على الأقل.");return}
+ logs.push({ex:sel,date:new Date().toLocaleDateString("ar-EG"),sets});save("logs",logs);psel=sel;go("prog")}
+function subBtn(pi){return sub&&sub.i==pi?`<div class="row"><b style="flex:1">أنت مشترك ✓</b><button class="sec" style="width:auto" onclick="unsub()">إلغاء الاشتراك</button></div>`:`<button class="pri" onclick="subscribe(${pi})">اشترك مجانًا</button><p class="muted">اشتراك مجاني بالكامل، وبنفكّرك بمواعيد التمرين.</p>`}
+function subscribe(pi){sub={i:pi};save("sub",sub);if(!rem.days.length){rem.days=[6,1,3];save("rem",rem)}go("rem")}
+function unsub(){sub=null;save("sub",null);render()}
+function sessTxt(){if(!sub)return"";const g=PROG[sub.i],ds=rem.days.slice().sort((a,b)=>a-b),k=ds.indexOf(new Date().getDay()),s=g.d[k%g.d.length];return s?` (${s[0]}: ${s[1].join("، ")})`:""}
+function askNotif(){try{Notification.requestPermission().then(r=>alert(r=="granted"?"تمام، الإشعارات اتفعّلت.":"الإشعارات مش مفعّلة. فعّلها من إعدادات المتصفح."))}catch(e){alert("المتصفح ده مش بيدعم الإشعارات.")}}
+setInterval(()=>{try{const d=new Date(),hm=d.toTimeString().slice(0,5),key=d.toDateString();if(Notification.permission=="granted"&&rem.days.includes(d.getDay())&&hm==rem.time&&load("lastN","")!=key){save("lastN",key);new Notification("تمرينك",{body:"وقت التمرين! 💪"+sessTxt()})}}catch(e){}},30000);
+const standalone=matchMedia("(display-mode: standalone)").matches||navigator.standalone;
+let dip=null;addEventListener("beforeinstallprompt",e=>{e.preventDefault();dip=e;showInst()});
+function showInst(){if(standalone||load("instNo",false)||$("#inst"))return;const d=document.createElement("div");d.id="inst";d.innerHTML=`<b id="it">نزّل تمرينك على موبايلك وافتحه زي أي تطبيق.</b><button class="pri" style="width:auto;padding:8px 16px;font-size:15px" onclick="instGo()">تنزيل</button><button class="x" style="color:#fff" aria-label="إغلاق" onclick="closeInst(true)">✕</button>`;document.body.appendChild(d)}
+function instGo(){if(dip){dip.prompt();dip.userChoice.then(()=>{dip=null;closeInst(false)});return}if(/iphone|ipad|ipod/i.test(navigator.userAgent))$("#it").textContent="في آيفون: اضغط المشاركة ثم «إضافة إلى الشاشة الرئيسية».";}
+addEventListener("appinstalled",()=>closeInst(false));
+function closeInst(r){const d=$("#inst");if(d)d.remove();if(r)save("instNo",true)}
+if(/iphone|ipad|ipod/i.test(navigator.userAgent))setTimeout(showInst,1200);
+const SUPPORT="201117211637";
+function openSup(){const d=document.createElement("div");d.id="sup";d.onclick=e=>{if(e.target==d)d.remove()};d.innerHTML=`<div class="card" style="max-width:420px;width:100%;max-height:80vh;overflow:auto"><div class="row"><b style="flex:1;font-size:18px">الدعم الفني</b><button class="x" aria-label="إغلاق" onclick="this.closest('#sup').remove()">✕</button></div><details><summary>إزاي أسجل تمرين؟</summary><p class="muted">من تبويب «تسجيل» اختار التمرين واكتب الوزن والتكرارات واضغط حفظ.</p></details><details><summary>إزاي أنزّل التطبيق على موبايلي؟</summary><p class="muted">اضغط زر «تنزيل» اللي بيظهر أول ما تفتح التطبيق، وهيتنزّل على موبايلك بأيقونته.</p></details><details><summary>بياناتي اتمسحت؟</summary><p class="muted">بياناتك محفوظة على جهازك، ولو مسحت بيانات المتصفح أو غيّرت الموبايل بتضيع.</p></details>${SUPPORT?`<a class="pri" style="display:block;text-align:center;text-decoration:none;margin-top:10px" target="_blank" rel="noopener" href="https://wa.me/${SUPPORT}?text=${encodeURIComponent("محتاج مساعدة في تمرينك"+(profile.name?" - "+profile.name:""))}">كلّمنا على واتساب</a>`:`<p class="muted">رقم الدعم هيتضاف قريب.</p>`}</div>`;document.body.appendChild(d)}
+render();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("service-worker.js").catch(()=>{});
+</script>
+</body>
+</html>
